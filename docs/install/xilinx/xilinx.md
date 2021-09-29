@@ -21,6 +21,24 @@ cd Vivado_2021.1
 ./xsetup # Prefix with sudo if you want to install it into /opt or other protected area. 
 ```
 
+## Custom copy+paste from drive install
+*Use this if you get the "not enough space" error.*
+
+*Xilinx needs its install location to have no spaces!!!*
+
+Plug in the external drive, navigate to the xilinx folder, get a terminal open.
+```bash
+cd /path/to/hard/drive/xilinx
+rsync -av ./{Vivado,xic}  /path/to/destination --exclude '*zynq*'
+cd /path/to/destination/Vivado/2021.1/
+nano settings64.sh # replace all paths with path to destination, delete any lines with HLS
+nano .settings64-Vivado.sh # ditto
+# check that it works
+cd bin
+./vivado
+# after a wait the gui should pop up!
+```
+
 ## Install Settings
 
 *The local install looks different since most of the options are already hard coded.*
