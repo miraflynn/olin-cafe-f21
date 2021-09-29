@@ -12,7 +12,7 @@ module test_conway_cell;
   conway_cell UUT(
     .clk(clk), .rst(rst), .ena(ena),
     .neighbors(neighbors),
-    .state_0(1'b0), .state_d(state_d), .state_q(state_q)
+    .state_0(1'b1), .state_d(state_d), .state_q(state_q)
   );
 
   always #5 clk = ~clk; // Toggle a clock every 5 time units.
@@ -29,7 +29,7 @@ module test_conway_cell;
     clk = 0;
     rst = 1; // Start reset in active state.
     ena = 1; // Not testing the ena function in this example (though you should try!)
-    state_0 = 0;
+    state_0 = 0; //literally what the fuck does this
     
     // Collect all internal variables for waveforms.
     $dumpfile("conway_cell.vcd");
