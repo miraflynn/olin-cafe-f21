@@ -52,7 +52,14 @@ module conway_cell(clk, rst, ena, state_0, state_d, state_q, neighbors);
     // $display("%b, %b", state_0, a3);
 
     state_d = (state_0 & ~a3[3] & ~a3[2] & a3[1] & ~a3[0]) | (~a3[3] & ~a3[2] & a3[1] & a3[0]);
-    state_q = ~state_d;
+    // state_q = ~state_d;
+  end
+
+  always_ff @(posedge clk, posedge rst) begin : cellstate
+
+    if(rst) state_q <= 4'b0;
+    else if(ena) state_q <= state_d;
+    
   end
 
 endmodule

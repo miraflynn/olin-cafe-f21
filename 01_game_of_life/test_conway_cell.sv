@@ -40,7 +40,7 @@ module test_conway_cell;
     rst = 0;
     
     $display("lrud : d : q");
-    for (int i = 0; i < 255; i = i + 1) begin
+    for (int i = 0; i < 256; i = i + 1) begin
       // Change inputs at a negative edge to avoid setup issues.
       @(negedge clk);
       neighbors = i[7:0];
