@@ -29,7 +29,7 @@ module test_conway_cell;
     clk = 0;
     rst = 1; // Start reset in active state.
     ena = 1; // Not testing the ena function in this example (though you should try!)
-    state_0 = 0; //literally what the fuck does this
+    state_0 = 0; //literally what the fuck does this do
     
     // Collect all internal variables for waveforms.
     $dumpfile("conway_cell.vcd");
