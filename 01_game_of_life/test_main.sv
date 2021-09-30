@@ -1,10 +1,10 @@
 `timescale 1ns / 1ps
 `default_nettype none
 
-`define SIMULATION
+// `define SIMULATION
 
 module test_main;
-  parameter N = 5;
+  parameter N = 8;
   parameter M = N + 2;
 
 	// Inputs
@@ -19,8 +19,11 @@ module test_main;
       .clk(clk), .buttons(buttons),
       .leds(leds), .rgb(rgb), .cols(cols), .rows(rows)
   );
+  led_array_model #(.N(N)) LED_ARRAY_MODEL(
+    .rows(rows), .cols(cols)
+  );
 
-  int cycles = 1000; // Number of cycles to run.
+  int cycles = 100; // Number of cycles to run.
 	
 	// Run our main clock.
 	always #5 clk = ~clk;
@@ -39,14 +42,21 @@ module test_main;
         buttons = 2'b00;
 
         // Let the simulation run!
-        for (int i = 0; i < cycles; i = i + 1) begin
+        for (int i = 0; i < cycles*UUT.game_divider; i = i + 1) begin
           @(posedge clk);
-          $display("< cycle: %02d >", i);
-          for (int j = N-1; j >= 0; j = j - 1) begin
-            row_to_print = UUT.cells_q >> j*N;
-            $display("-%b-", row_to_print);
+          if(UUT.step_game) begin
+            $display("~~~~~~~~~~ < cycle: %02d > cells: ~~~~~~~~~~", i);
+            for (int j = N-1; j >= 0; j = j - 1) begin
+              row_to_print = UUT.cells_q >> j*N;
+              $display("-%b-", row_to_print);
+            end
           end
-          $display();
+          /*
+          if(UUT.display_counter[UUT.display_divider]) begin
+            $display("rows = %b, cols = %b, leds = ", rows, cols);
+            LED_ARRAY_MODEL.print_status();
+          end
+          */
         end
         
         $finish;      

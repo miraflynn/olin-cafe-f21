@@ -94,6 +94,7 @@ sudo adduser $USER dialout
 
 # install icarus verilog from source - thanks to Manu for the help!
 sudo apt-get remove iverilog
+sudo apt-get install gperf autoconf
 cd /path/to/workspace
 git clone https://github.com/steveicarus/iverilog.git
 cd iverilog

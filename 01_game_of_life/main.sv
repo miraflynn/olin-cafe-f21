@@ -1,5 +1,7 @@
 `default_nettype none // Overrides default behaviour (in a good way)
 
+`include "initial_conditions.sv"
+
 /*
 An example to get us started with FPGA programming, mapping io,
 and using the Digilent CMod-A7-15T board, and combinational logic.
@@ -19,16 +21,14 @@ Based on the [Luckylight](https://cdn-shop.adafruit.com/datasheets/454datasheet.
 display modules, available from [adafruit](https://www.adafruit.com/product/454)
 
 */
-`define DISABLE_CONWAY // comment this out after you've implemented your conway_cell module.
-module main(clk, buttons, leds, rgb
-`ifndef DISABLE_CONWAY
- , cols, rows
-`endif
-);
+
+// `define DISABLE_GAME // Uncomment this to degug your LED driver without the game running.
+
+module main(clk, buttons, leds, rgb, cols, rows);
   //Module I/O and parameters
-  parameter game_divider = 22; // A clock divider parameter - 12 MHz / 2^23 is about 1 Hz (human visible speed).
-  parameter display_divider = 14; // Need to PWM the LEDs faster than the game clock!
-  parameter N = 5; // Size of the grid
+  parameter game_divider = 23; // A clock divider parameter - 12 MHz / 2^23 is about 1 Hz (human visible speed).
+  parameter display_divider = 12; // 12 to 17 are good values. Need to PWM the LEDs faster than the game clock.
+  parameter N = 8; // Size of the grid
   parameter M = N + 2; // Size of the grid, plus a border all around (makes wiring way easier).
   // Parameter checks.
   initial if (N < 3) $error("N has to be >= 3 to make for interesting patterns.");
@@ -36,21 +36,15 @@ module main(clk, buttons, leds, rgb
   
   input wire clk;
   input wire [1:0] buttons;
-  wire rst; assign rst = buttons[0]; // Use button 0 as a reset signal.
+  logic rst; always_comb rst = buttons[0]; // Use button 0 as a reset signal.
   output logic [1:0] leds;
   output logic [2:0] rgb;
-`ifndef DISABLE_CONWAY
   output wire [N-1:0] cols;
   output wire [N-1:0] rows;
-`else 
-  wire [N-1:0] cols;
-  wire [N-1:0] rows;
-  assign cols = 0;
-  assign rows = 0;
-`endif
 
   logic [game_divider:0] game_counter;
   logic [display_divider:0] display_counter;
+  logic rst_game; always_comb rst_game = buttons[0] | buttons[1];
   logic step_game;
   logic [$clog2(N):0] x;
 
@@ -59,7 +53,7 @@ module main(clk, buttons, leds, rgb
   logic [M*M-1:0] bordered_cells_0; // Initial cell state.
   
   logic [N*N-1:0] cells_q; // A remapped version of cells_q without the border 
-                           // to make wiring the led driver easier.
+  logic [N*N-1:0] cells_0; // to make wiring the led driver easier.
 
   // Some example logic to make sure that you've flashed the FPGA. One of the
   // worst problems to debug is when you aren't sure that the FPGA is updating
@@ -75,10 +69,13 @@ module main(clk, buttons, leds, rgb
   end
 
   // Instantiate the LED Driver Module
-  // Quick mux to let you debug any wiring errors with the display.
   led_array_driver #(.ROWS(N), .COLS(N), .N(N)) LED_DRIVER (
     .ena(1'b1),
+`ifdef DISABLE_GAME
+    .cells(cells_0),
+`else
     .cells(cells_q),
+`endif
     .x(x),
     .rows(rows[N-1:0]),
     .cols(cols[N-1:0])
@@ -95,93 +92,15 @@ module main(clk, buttons, leds, rgb
 `else // MANUAL_INITIAL_CONDITION
     // You will need to update the constants and size based on the size M.
     if (N == 5) begin
-      bordered_cells_0 = {
-        7'b0000000,
-        7'b0010000,
-        7'b0011000,
-        7'b0011000,
-        7'b0001000,
-        7'b0000000,
-        7'b0000000
-      };
-
-      // A static test, good for testing if the led driver works well.
-      bordered_cells_0 = {
-        7'b0000000,
-        7'b0011000,
-        7'b0100100,
-        7'b0010100,
-        7'b0001000,
-        7'b0000000,
-        7'b0000000
-      };
+      bordered_cells_0 = `INIT_5x5_STATIC_TUB;
     end else if (N == 8) begin
       // Last implementation is what counts.
-      // glider
-      bordered_cells_0 = {
-        10'b0000000000,
-        10'b0001000000,
-        10'b0000100000,
-        10'b0011100000,
-        10'b0000000000,
-        10'b0000000000,
-        10'b0000000000,
-        10'b0000000000,
-        10'b0000000000,
-        10'b0000000000
-      };
-
-       
-      // Fun set of blinkers that fade away.
-      bordered_cells_0 = {
-        10'b0000000000,
-        10'b0001110000,
-        10'b0000000000,
-        10'b0000000000,
-        10'b0001110000,
-        10'b0000000000,
-        10'b0000000000,
-        10'b0001110000,
-        10'b0000000000,
-        10'b0000000000
-      };
-
-      // Just a fun test pattern.
-      bordered_cells_0 = {
-        10'b1010101010,
-        10'b0101010101,
-        10'b1010101010,
-        10'b0101010101,
-        10'b1010101010,
-        10'b0101010101,
-        10'b1010101010,
-        10'b0101010101,
-        10'b1010101010,
-        10'b0101010101
-      };
-     
+      bordered_cells_0 = `INIT_8x8_GLIDER;
+      // bordered_cells_0 = `INIT_8x8_ALTERNATING;     
     end else if (N==15) begin
-      bordered_cells_0 = {
-        17'b00000000000000000,
-        17'b00000000000000000,
-        17'b00001110001110000,
-        17'b00000000000000000,
-        17'b00100001010000100,
-        17'b00100001010000100,
-        17'b00100001010000100,
-        17'b00001110001110000,
-        17'b00000000000000000,
-        17'b00001110001110000,
-        17'b00100001010000100,
-        17'b00100001010000100,
-        17'b00100001010000100,
-        17'b00000000000000000,
-        17'b00001110001110000,
-        17'b00000000000000000,
-        17'b00000000000000000
-      };
+      bordered_cells_0 = `INIT_13x13_PULSAR;
     end else begin
-      bordered_cells_0 = {M*M {1'b0}};
+      bordered_cells_0 = {M*M {1'b1}};
     end
 `endif // MANUAL_INITIAL_CONDITION
   end
@@ -239,8 +158,7 @@ module main(clk, buttons, leds, rgb
     // its x and y coordinate, accounting for a border of zero'd out cells.
     cell_index = M*j + i;
   endfunction
-
-`ifndef DISABLE_CONWAY
+  
   
   generate
     genvar i;
@@ -250,7 +168,7 @@ module main(clk, buttons, leds, rgb
         // Only instantiate cells on the inside of the border
         if ( (i > 0) && (i < (M-1)) && (j > 0) && (j < (M-1)) ) begin
           conway_cell CELL(
-            .clk(clk), .rst(rst), .ena(step_game),
+            .clk(clk), .rst(rst_game), .ena(step_game),
             .neighbors({
               bordered_cells_q[cell_index(i-1, j-1)],
               bordered_cells_q[cell_index(i-1, j  )],
@@ -276,16 +194,18 @@ module main(clk, buttons, leds, rgb
     for (i = 0; i < N; i = i + 1) begin
       always_comb begin
           cells_q[N*(i+1)-1:N*i] = bordered_cells_q[M*(i+2)-2:M*(i+1)+1];
+          cells_0[N*(i+1)-1:N*i] = bordered_cells_0[M*(i+2)-2:M*(i+1)+1];
       end
     end
   endgenerate
-`endif // DISABLE_CONWAY
+
   // Here's some clock divider logic to make this run slow enough for humans
   // to see. The default parameters dived by 2^20 (powers of two are easier)
   // which for our input 12MHz clock results in about a 11 Hz update rate.
   // If you want it to run slower or faster you can increase or decrease the 
   // divider parameter (larger is slower).
   parameter faster_divider = 15;
+  
   always_ff @(posedge clk) begin : clocks_and_dividers // You can label any begin/end block, can help with debugging.
     if (rst) begin
         game_counter <= 0;
