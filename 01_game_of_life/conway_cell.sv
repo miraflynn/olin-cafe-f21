@@ -45,9 +45,9 @@ module conway_cell(clk, rst, ena, state_0, state_d, state_q, neighbors);
     
     // (1x) 3-bit input, 4-bit output
     a3[3] = a2[2] & b2[2];
-    a3[2] = (a2[1] & b2[1]) | (a2[2]) ^ (b2[2]); 
-    a3[1] = (a2[0] & b2[0]) | (a2[1]) ^ (b2[1]);
-    a3[0] = a2[0] ^ b2[0];
+    a3[2] = ((a2[1] & b2[1]) ^ (a2[2]) ^ (b2[2])) |  ((a2[0] & b2[0]) & (a2[1] ^ b2[1]));
+    a3[1] = (a2[0] & b2[0]) ^ (a2[1] ^ b2[1]);
+    a3[0] = a2[0] ^ b2[0]; //correct
     
     // $display("%b, %b", state_0, a3);
 
