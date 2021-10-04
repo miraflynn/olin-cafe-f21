@@ -57,7 +57,7 @@ module conway_cell(clk, rst, ena, state_0, state_d, state_q, neighbors);
 
   always_ff @(posedge clk, posedge rst) begin : cellstate
 
-    if(rst) state_q <= 4'b0;
+    if(rst) state_q <= state_0;
     else if(ena) state_q <= state_d;
     
   end

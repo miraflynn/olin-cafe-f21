@@ -1,5 +1,5 @@
 $date
-	Thu Sep 30 17:18:16 2021
+	Mon Oct  4 17:15:13 2021
 $end
 $version
 	Icarus Verilog
@@ -30,7 +30,7 @@ $upscope $end
 $enddefinitions $end
 #0
 $dumpvars
-0.
+1.
 x-
 bx ,
 bx +
