@@ -118,6 +118,11 @@ vivado & # The `&` tells the terminal to not block after the command. Useful for
 
 The Vivado launch panel should show up if you configured everything correctly!
 
+If you get an error about `libtinfo.so.5`, run:
+```bash 
+sudo ln -s /lib/x86_64-linux-gnu/libtinfo.so.6 /lib/x86_64-linux-gnu/libtinfo.so.5
+```
+
 # Setting an external text editor
 - Launch vivado
 - Tools -> Settings -> Text Editor
