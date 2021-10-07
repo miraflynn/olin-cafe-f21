@@ -1,16 +1,15 @@
 module adder_n(a, b, c_in, sum, c_out);
 
-parameter N = 1;
+parameter N = 2;
 
 input  wire [N-1:0] a, b;
 input wire c_in;
 output logic [N-1:0] sum;
-output logic c_out;
-
+output wire c_out;
 
 wire [N:0] carries;
-always_comb c_out = carries[N];
-always_comb carries[0] = c_in;
+assign carries[0] = c_in;
+assign c_out = carries[N];
 generate
   genvar i;
   for(i = 0; i < N; i++) begin : ripple_carry

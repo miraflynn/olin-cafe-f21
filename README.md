@@ -113,6 +113,12 @@ sudo dpkg -i digilent.adept.runtime_2.4.1-amd64.deb
 sudo dpkg -i digilent.adept.utilities_2.4.1-amd64.deb
 ```
 
+Then you can flash FPGAs without Xilinx tools using:
+```
+djtgcfg enum # Will show you the string to put for the -d arg
+djtgcfg prog -d CmodA7 -i 0 -f main.bit
+```
+
 ### Xilinx Install
 (*Warning - this can take >2 hrs*) Instructions [here
 Instructions [here](docs/install/xilinx/xilinx.md).

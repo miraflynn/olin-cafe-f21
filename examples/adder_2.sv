@@ -21,10 +21,10 @@ adder_1 ADDER_A(
 );
 
 adder_1 ADDER_B(
-  .a(a[0]),
-  .b(b[0]),
+  .a(a[1]),
+  .b(b[1]),
   .c_in(carry),
-  .sum(sum[0]),
+  .sum(sum[1]),
   .c_out(c_out)
 );
 

@@ -1,0 +1,34 @@
+[*]
+[*] GTKWave Analyzer v3.3.106 (w)1999-2020 BSI
+[*] Thu Oct  7 07:38:27 2021
+[*]
+[dumpfile] "/home/avinash/src/olin-cafe-f21/examples/shift_register.vcd"
+[dumpfile_mtime] "Thu Oct  7 07:35:58 2021"
+[dumpfile_size] 665
+[savefile] "/home/avinash/src/olin-cafe-f21/examples/wave_cfgs/shift_register.gtkw"
+[timestart] 0
+[size] 1272 1403
+[pos] -1 -1
+*-15.227885 85000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] test_shift_register.
+[sst_width] 253
+[signals_width] 90
+[sst_expanded] 1
+[sst_vpaned_height] 420
+@28
+test_shift_register.UUT.rst
+test_shift_register.UUT.ena
+test_shift_register.UUT.clk
+@22
+test_shift_register.UUT.d[3:0]
+@c00029
+test_shift_register.UUT.q[3:0]
+@29
+(0)test_shift_register.UUT.q[3:0]
+(1)test_shift_register.UUT.q[3:0]
+(2)test_shift_register.UUT.q[3:0]
+(3)test_shift_register.UUT.q[3:0]
+@1401201
+-group_end
+[pattern_trace] 1
+[pattern_trace] 0
