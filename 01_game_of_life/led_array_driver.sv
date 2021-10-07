@@ -35,10 +35,8 @@ module led_array_driver(ena, x, cells, rows, cols);
   //   genvar i;
   //   for(i = 0; i < N; i++) begin : fuckedy_fuck
   //     always_comb begin
-  //       rows[i] = ~(
-  //       (cells[0*N+i] & x_decoded[0]) |
-  //       (cells[1*N+i] & x_decoded[1]) |
-  //       (cells[2*N+i] & x_decoded[2])
+  //       // rows = ~(
+  //       rows[i] = (cells[(i+1)*N-1:i*N] & x_decoded) |
   //       // (cells[3*N] & x_decoded[3]) |
   //       // (cells[4*N] & x_decoded[4]) |
   //       // (cells[5*N] & x_decoded[5]) |
@@ -50,15 +48,15 @@ module led_array_driver(ena, x, cells, rows, cols);
   // endgenerate
   always_comb begin : led_comb_logic
     cols = x_decoded;
-    rows[N:0] = ~(
+    rows = ~(
       (cells[1*N-1:0*N] & x_decoded) |
       (cells[2*N-1:1*N] & x_decoded) |
-      (cells[3*N-1:2*N] & x_decoded) //|
-      // (cells[4*N-1:3*N] & x_decoded[3]) |
-      // (cells[5*N-1:4*N] & x_decoded[4]) |
-      // (cells[6*N-1:5*N] & x_decoded[5]) |
-      // (cells[7*N-1:6*N] & x_decoded[6]) |
-      // (cells[8*N-1:7*N] & x_decoded[7])
+      (cells[3*N-1:2*N] & x_decoded) |
+      (cells[4*N-1:3*N] & x_decoded) |
+      (cells[5*N-1:4*N] & x_decoded) |
+      (cells[6*N-1:5*N] & x_decoded) |
+      (cells[7*N-1:6*N] & x_decoded) |
+      (cells[8*N-1:7*N] & x_decoded)
     );
     // $display("\n");
     $display("CELLS: %b", cells);
