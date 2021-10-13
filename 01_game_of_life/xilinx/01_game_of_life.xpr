@@ -3,7 +3,7 @@
 <!--                                                         -->
 <!-- Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.   -->
 
-<Project Version="7" Minor="55" Path="/home/gaher/CompArc/mira_repo/01_game_of_life/xilinx/01_game_of_life.xpr">
+<Project Version="7" Minor="55" Path="/home/mira/Documents/olin-cafe-f21/01_game_of_life/xilinx/01_game_of_life.xpr">
   <DefaultLaunch Dir="$PRUNDIR"/>
   <Configuration>
     <Option Name="Id" Val="9e65ca6ac84748cea8975ab8a1cd1f70"/>

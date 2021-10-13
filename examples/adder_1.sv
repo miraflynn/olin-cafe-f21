@@ -14,5 +14,4 @@ always_comb begin : adder_gates
   sum = 1'bx;
 end
 
-
 endmodule

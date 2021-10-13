@@ -4,7 +4,7 @@
 
 set TIME_start [clock seconds] 
 namespace eval ::optrace {
-  variable script "/home/gaher/CompArc/mira_repo/01_game_of_life/xilinx/01_game_of_life.runs/synth_1/main.tcl"
+  variable script "/home/mira/Documents/olin-cafe-f21/01_game_of_life/xilinx/01_game_of_life.runs/synth_1/main.tcl"
   variable category "vivado_synth"
 }
 
@@ -70,25 +70,26 @@ proc create_report { reportName command } {
   }
 }
 OPTRACE "synth_1" START { ROLLUP_AUTO }
+set_param chipscope.maxJobs 3
 OPTRACE "Creating in-memory project" START { }
 create_project -in_memory -part xc7a15tcpg236-1
 
 set_param project.singleFileAddWarning.threshold 0
 set_param project.compositeFile.enableAutoGeneration 0
 set_param synth.vivado.isSynthRun true
-set_property webtalk.parent_dir /home/gaher/CompArc/mira_repo/01_game_of_life/xilinx/01_game_of_life.cache/wt [current_project]
-set_property parent.project_path /home/gaher/CompArc/mira_repo/01_game_of_life/xilinx/01_game_of_life.xpr [current_project]
+set_property webtalk.parent_dir /home/mira/Documents/olin-cafe-f21/01_game_of_life/xilinx/01_game_of_life.cache/wt [current_project]
+set_property parent.project_path /home/mira/Documents/olin-cafe-f21/01_game_of_life/xilinx/01_game_of_life.xpr [current_project]
 set_property default_lib xil_defaultlib [current_project]
 set_property target_language Verilog [current_project]
-set_property ip_output_repo /home/gaher/CompArc/mira_repo/01_game_of_life/xilinx/01_game_of_life.cache/ip [current_project]
+set_property ip_output_repo /home/mira/Documents/olin-cafe-f21/01_game_of_life/xilinx/01_game_of_life.cache/ip [current_project]
 set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
 read_verilog -library xil_defaultlib -sv {
-  /home/gaher/CompArc/mira_repo/01_game_of_life/conway_cell.sv
-  /home/gaher/CompArc/mira_repo/01_game_of_life/decoder_3_to_8.sv
-  /home/gaher/CompArc/mira_repo/01_game_of_life/led_array_driver.sv
-  /home/gaher/CompArc/mira_repo/01_game_of_life/main.sv
+  /home/mira/Documents/olin-cafe-f21/01_game_of_life/conway_cell.sv
+  /home/mira/Documents/olin-cafe-f21/01_game_of_life/decoder_3_to_8.sv
+  /home/mira/Documents/olin-cafe-f21/01_game_of_life/led_array_driver.sv
+  /home/mira/Documents/olin-cafe-f21/01_game_of_life/main.sv
 }
 OPTRACE "Adding files" END { }
 # Mark all dcp files as not used in implementation to prevent them from being
@@ -99,8 +100,8 @@ OPTRACE "Adding files" END { }
 foreach dcp [get_files -quiet -all -filter file_type=="Design\ Checkpoint"] {
   set_property used_in_implementation false $dcp
 }
-read_xdc /home/gaher/CompArc/mira_repo/01_game_of_life/01_game_of_life.xdc
-set_property used_in_implementation false [get_files /home/gaher/CompArc/mira_repo/01_game_of_life/01_game_of_life.xdc]
+read_xdc /home/mira/Documents/olin-cafe-f21/01_game_of_life/01_game_of_life.xdc
+set_property used_in_implementation false [get_files /home/mira/Documents/olin-cafe-f21/01_game_of_life/01_game_of_life.xdc]
 
 set_param ips.enableIPCacheLiteLoad 1
 close [open __synthesis_is_running__ w]

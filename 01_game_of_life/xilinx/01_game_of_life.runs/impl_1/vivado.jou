@@ -2,11 +2,11 @@
 # Vivado v2021.1 (64-bit)
 # SW Build 3247384 on Thu Jun 10 19:36:07 MDT 2021
 # IP Build 3246043 on Fri Jun 11 00:30:35 MDT 2021
-# Start of session at: Sun Oct 10 21:21:53 2021
-# Process ID: 24497
-# Current directory: /home/gaher/CompArc/mira_repo/01_game_of_life/xilinx/01_game_of_life.runs/impl_1
+# Start of session at: Tue Oct 12 21:30:25 2021
+# Process ID: 57522
+# Current directory: /home/mira/Documents/olin-cafe-f21/01_game_of_life/xilinx/01_game_of_life.runs/impl_1
 # Command line: vivado -log main.vdi -applog -product Vivado -messageDb vivado.pb -mode batch -source main.tcl -notrace
-# Log file: /home/gaher/CompArc/mira_repo/01_game_of_life/xilinx/01_game_of_life.runs/impl_1/main.vdi
-# Journal file: /home/gaher/CompArc/mira_repo/01_game_of_life/xilinx/01_game_of_life.runs/impl_1/vivado.jou
+# Log file: /home/mira/Documents/olin-cafe-f21/01_game_of_life/xilinx/01_game_of_life.runs/impl_1/main.vdi
+# Journal file: /home/mira/Documents/olin-cafe-f21/01_game_of_life/xilinx/01_game_of_life.runs/impl_1/vivado.jou
 #-----------------------------------------------------------
 source main.tcl -notrace
