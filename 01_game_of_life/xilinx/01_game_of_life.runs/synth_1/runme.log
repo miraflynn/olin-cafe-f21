@@ -1,0 +1,282 @@
+
+*** Running vivado
+    with args -log main.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source main.tcl
+
+
+****** Vivado v2021.1 (64-bit)
+  **** SW Build 3247384 on Thu Jun 10 19:36:07 MDT 2021
+  **** IP Build 3246043 on Fri Jun 11 00:30:35 MDT 2021
+    ** Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
+
+source main.tcl -notrace
+Command: synth_design -top main -part xc7a15tcpg236-1
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7a15t'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a15t'
+INFO: [Device 21-403] Loading part xc7a15tcpg236-1
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 4 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 24349
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 2476.906 ; gain = 0.000 ; free physical = 8122 ; free virtual = 14563
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'main' [/home/gaher/CompArc/mira_repo/01_game_of_life/main.sv:27]
+INFO: [Synth 8-6157] synthesizing module 'conway_cell' [/home/gaher/CompArc/mira_repo/01_game_of_life/conway_cell.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'conway_cell' (1#1) [/home/gaher/CompArc/mira_repo/01_game_of_life/conway_cell.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'led_array_driver' [/home/gaher/CompArc/mira_repo/01_game_of_life/led_array_driver.sv:3]
+	Parameter N bound to: 8 - type: integer 
+	Parameter ROWS bound to: 8 - type: integer 
+	Parameter COLS bound to: 8 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'decoder_3_to_8' [/home/gaher/CompArc/mira_repo/01_game_of_life/decoder_3_to_8.sv:1]
+INFO: [Synth 8-6155] done synthesizing module 'decoder_3_to_8' (2#1) [/home/gaher/CompArc/mira_repo/01_game_of_life/decoder_3_to_8.sv:1]
+WARNING: [Synth 8-689] width (4) of port connection 'in' does not match port width (3) of module 'decoder_3_to_8' [/home/gaher/CompArc/mira_repo/01_game_of_life/led_array_driver.sv:30]
+INFO: [Synth 8-251] CELLS: 64'bxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx [/home/gaher/CompArc/mira_repo/01_game_of_life/led_array_driver.sv:62]
+INFO: [Synth 8-251] X_DECODED: 8'bxxxxxxxx [/home/gaher/CompArc/mira_repo/01_game_of_life/led_array_driver.sv:63]
+INFO: [Synth 8-6155] done synthesizing module 'led_array_driver' (3#1) [/home/gaher/CompArc/mira_repo/01_game_of_life/led_array_driver.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'main' (4#1) [/home/gaher/CompArc/mira_repo/01_game_of_life/main.sv:27]
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 2476.906 ; gain = 0.000 ; free physical = 7266 ; free virtual = 13705
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 2476.906 ; gain = 0.000 ; free physical = 7262 ; free virtual = 13701
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 2476.906 ; gain = 0.000 ; free physical = 7262 ; free virtual = 13701
+---------------------------------------------------------------------------------
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.01 . Memory (MB): peak = 2476.906 ; gain = 0.000 ; free physical = 7255 ; free virtual = 13694
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [/home/gaher/CompArc/mira_repo/01_game_of_life/01_game_of_life.xdc]
+WARNING: [Vivado 12-584] No ports matched 'cols[07]'. [/home/gaher/CompArc/mira_repo/01_game_of_life/01_game_of_life.xdc:23]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [/home/gaher/CompArc/mira_repo/01_game_of_life/01_game_of_life.xdc:23]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'cols[06]'. [/home/gaher/CompArc/mira_repo/01_game_of_life/01_game_of_life.xdc:24]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [/home/gaher/CompArc/mira_repo/01_game_of_life/01_game_of_life.xdc:24]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'cols[05]'. [/home/gaher/CompArc/mira_repo/01_game_of_life/01_game_of_life.xdc:25]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [/home/gaher/CompArc/mira_repo/01_game_of_life/01_game_of_life.xdc:25]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'cols[04]'. [/home/gaher/CompArc/mira_repo/01_game_of_life/01_game_of_life.xdc:26]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [/home/gaher/CompArc/mira_repo/01_game_of_life/01_game_of_life.xdc:26]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'rows[03]'. [/home/gaher/CompArc/mira_repo/01_game_of_life/01_game_of_life.xdc:27]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [/home/gaher/CompArc/mira_repo/01_game_of_life/01_game_of_life.xdc:27]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'rows[02]'. [/home/gaher/CompArc/mira_repo/01_game_of_life/01_game_of_life.xdc:28]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [/home/gaher/CompArc/mira_repo/01_game_of_life/01_game_of_life.xdc:28]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'rows[01]'. [/home/gaher/CompArc/mira_repo/01_game_of_life/01_game_of_life.xdc:29]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [/home/gaher/CompArc/mira_repo/01_game_of_life/01_game_of_life.xdc:29]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'rows[00]'. [/home/gaher/CompArc/mira_repo/01_game_of_life/01_game_of_life.xdc:30]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [/home/gaher/CompArc/mira_repo/01_game_of_life/01_game_of_life.xdc:30]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'rows[04]'. [/home/gaher/CompArc/mira_repo/01_game_of_life/01_game_of_life.xdc:59]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [/home/gaher/CompArc/mira_repo/01_game_of_life/01_game_of_life.xdc:59]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'rows[05]'. [/home/gaher/CompArc/mira_repo/01_game_of_life/01_game_of_life.xdc:60]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [/home/gaher/CompArc/mira_repo/01_game_of_life/01_game_of_life.xdc:60]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'rows[06]'. [/home/gaher/CompArc/mira_repo/01_game_of_life/01_game_of_life.xdc:61]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [/home/gaher/CompArc/mira_repo/01_game_of_life/01_game_of_life.xdc:61]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'rows[07]'. [/home/gaher/CompArc/mira_repo/01_game_of_life/01_game_of_life.xdc:62]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [/home/gaher/CompArc/mira_repo/01_game_of_life/01_game_of_life.xdc:62]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'cols[03]'. [/home/gaher/CompArc/mira_repo/01_game_of_life/01_game_of_life.xdc:63]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [/home/gaher/CompArc/mira_repo/01_game_of_life/01_game_of_life.xdc:63]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'cols[02]'. [/home/gaher/CompArc/mira_repo/01_game_of_life/01_game_of_life.xdc:64]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [/home/gaher/CompArc/mira_repo/01_game_of_life/01_game_of_life.xdc:64]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'cols[01]'. [/home/gaher/CompArc/mira_repo/01_game_of_life/01_game_of_life.xdc:65]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [/home/gaher/CompArc/mira_repo/01_game_of_life/01_game_of_life.xdc:65]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'cols[00]'. [/home/gaher/CompArc/mira_repo/01_game_of_life/01_game_of_life.xdc:66]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [/home/gaher/CompArc/mira_repo/01_game_of_life/01_game_of_life.xdc:66]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+Finished Parsing XDC File [/home/gaher/CompArc/mira_repo/01_game_of_life/01_game_of_life.xdc]
+INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [/home/gaher/CompArc/mira_repo/01_game_of_life/01_game_of_life.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/main_propImpl.xdc].
+Resolution: To avoid this warning, move constraints listed in [.Xil/main_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
+Completed Processing XDC Constraints
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2540.859 ; gain = 0.000 ; free physical = 8005 ; free virtual = 14445
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2540.859 ; gain = 0.000 ; free physical = 8005 ; free virtual = 14445
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 2540.859 ; gain = 63.953 ; free physical = 8077 ; free virtual = 14518
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7a15tcpg236-1
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 2540.859 ; gain = 63.953 ; free physical = 8077 ; free virtual = 14518
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 2540.859 ; gain = 63.953 ; free physical = 8077 ; free virtual = 14518
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 2540.859 ; gain = 63.953 ; free physical = 8068 ; free virtual = 14511
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input    4 Bit       Adders := 1     
++---XORs : 
+	   2 Input      1 Bit         XORs := 705   
+	   3 Input      1 Bit         XORs := 64    
++---Registers : 
+	                4 Bit    Registers := 1     
+	                1 Bit    Registers := 64    
++---Muxes : 
+	   2 Input    1 Bit        Muxes := 129   
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 45 (col length:60)
+BRAMs: 50 (col length: RAMB18 60 RAMB36 30)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:09 ; elapsed = 00:00:10 . Memory (MB): peak = 2540.859 ; gain = 63.953 ; free physical = 8038 ; free virtual = 14483
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:13 ; elapsed = 00:00:13 . Memory (MB): peak = 2540.859 ; gain = 63.953 ; free physical = 7923 ; free virtual = 14367
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:14 ; elapsed = 00:00:14 . Memory (MB): peak = 2540.859 ; gain = 63.953 ; free physical = 7912 ; free virtual = 14356
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:14 ; elapsed = 00:00:14 . Memory (MB): peak = 2540.859 ; gain = 63.953 ; free physical = 7911 ; free virtual = 14355
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:16 ; elapsed = 00:00:17 . Memory (MB): peak = 2540.859 ; gain = 63.953 ; free physical = 7908 ; free virtual = 14355
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:16 ; elapsed = 00:00:17 . Memory (MB): peak = 2540.859 ; gain = 63.953 ; free physical = 7909 ; free virtual = 14355
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:16 ; elapsed = 00:00:17 . Memory (MB): peak = 2540.859 ; gain = 63.953 ; free physical = 7908 ; free virtual = 14354
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:16 ; elapsed = 00:00:17 . Memory (MB): peak = 2540.859 ; gain = 63.953 ; free physical = 7909 ; free virtual = 14355
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:16 ; elapsed = 00:00:17 . Memory (MB): peak = 2540.859 ; gain = 63.953 ; free physical = 7908 ; free virtual = 14354
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:16 ; elapsed = 00:00:17 . Memory (MB): peak = 2540.859 ; gain = 63.953 ; free physical = 7909 ; free virtual = 14355
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+-------+------+
+|      |Cell   |Count |
++------+-------+------+
+|1     |BUFG   |     1|
+|2     |CARRY4 |    10|
+|3     |LUT1   |     3|
+|4     |LUT2   |    51|
+|5     |LUT3   |    15|
+|6     |LUT4   |     5|
+|7     |LUT5   |    62|
+|8     |LUT6   |   117|
+|9     |FDCE   |    59|
+|10    |FDPE   |     5|
+|11    |FDRE   |    41|
+|12    |IBUF   |     3|
+|13    |OBUF   |    21|
++------+-------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:16 ; elapsed = 00:00:17 . Memory (MB): peak = 2540.859 ; gain = 63.953 ; free physical = 7908 ; free virtual = 14354
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 0 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:15 ; elapsed = 00:00:15 . Memory (MB): peak = 2540.859 ; gain = 0.000 ; free physical = 7960 ; free virtual = 14406
+Synthesis Optimization Complete : Time (s): cpu = 00:00:16 ; elapsed = 00:00:17 . Memory (MB): peak = 2540.859 ; gain = 63.953 ; free physical = 7960 ; free virtual = 14406
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2540.859 ; gain = 0.000 ; free physical = 8048 ; free virtual = 14495
+INFO: [Netlist 29-17] Analyzing 10 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2540.859 ; gain = 0.000 ; free physical = 7990 ; free virtual = 14436
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Synth Design complete, checksum: 8e39292a
+INFO: [Common 17-83] Releasing license: Synthesis
+25 Infos, 17 Warnings, 16 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:23 ; elapsed = 00:00:19 . Memory (MB): peak = 2540.859 ; gain = 64.031 ; free physical = 8143 ; free virtual = 14587
+INFO: [runtcl-6] Synthesis results are not added to the cache due to CRITICAL_WARNING
+INFO: [Common 17-1381] The checkpoint '/home/gaher/CompArc/mira_repo/01_game_of_life/xilinx/01_game_of_life.runs/synth_1/main.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_utilization -file main_utilization_synth.rpt -pb main_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Sun Oct 10 21:21:47 2021...

@@ -29,40 +29,14 @@ module led_array_driver(ena, x, cells, rows, cols);
   wire [N-1:0] x_decoded;
   decoder_3_to_8 COL_DECODER(ena, x, x_decoded);
 
-  always_comb cols = x_decoded;
-
-  // generate
-  //   genvar i;
-  //   for(i = 0; i < N; i++) begin : fuckedy_fuck
-  //     always_comb begin
-  //       // rows = ~(
-  //       rows[i] = (cells[(i+1)*N-1:i*N] & x_decoded) |
-  //       // (cells[3*N] & x_decoded[3]) |
-  //       // (cells[4*N] & x_decoded[4]) |
-  //       // (cells[5*N] & x_decoded[5]) |
-  //       // (cells[6*N] & x_decoded[6]) |
-  //       // (cells[7*N] & x_decoded[7])
-  //     );
-  //     end
-  //   end
-  // endgenerate
-  always_comb begin : led_comb_logic
-    cols = x_decoded;
-    rows = ~(
-      (cells[1*N-1:0*N] & x_decoded) |
-      (cells[2*N-1:1*N] & x_decoded) |
-      (cells[3*N-1:2*N] & x_decoded) |
-      (cells[4*N-1:3*N] & x_decoded) |
-      (cells[5*N-1:4*N] & x_decoded) |
-      (cells[6*N-1:5*N] & x_decoded) |
-      (cells[7*N-1:6*N] & x_decoded) |
-      (cells[8*N-1:7*N] & x_decoded)
-    );
-    // $display("\n");
-    $display("CELLS: %b", cells);
-    $display("X_DECODED: %b", x_decoded);
-    // $display("***");
-  end
+  // the for-loop creates N assign statements
+  genvar i;
+  generate 
+      assign cols = x_decoded;
+      for (i = 0; i < N; i = i + 1) begin
+        assign rows[(N -1) - i] = ~(|(cells[(i+1)*N-1:i*N] & x_decoded)) & ena;
+      end
+  endgenerate
   
 endmodule
 
