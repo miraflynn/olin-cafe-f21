@@ -1,8 +1,8 @@
 Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
 --------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2021.1 (lin64) Build 3247384 Thu Jun 10 19:36:07 MDT 2021
-| Date         : Sun Oct 10 21:22:20 2021
-| Host         : gaher-Latitude-5401 running 64-bit Ubuntu 20.04.3 LTS
+| Date         : Tue Oct 12 21:25:47 2021
+| Host         : mira-latitude-ubuntu running 64-bit Ubuntu 20.04.3 LTS
 | Command      : report_methodology -file main_methodology_drc_routed.rpt -pb main_methodology_drc_routed.pb -rpx main_methodology_drc_routed.rpx
 | Design       : main
 | Device       : xc7a15tcpg236-1
@@ -35,7 +35,7 @@ Table of Contents
 -----------------
 LUTAR-1#1 Warning
 LUT drives async reset alert  
-LUT cell cells_x[8].cells_y[8].CELL/state_q_i_2__34, with 2 or more inputs, drives asynchronous preset/clear pin(s) cells_x[1].cells_y[1].CELL/state_q_reg/CLR,
+LUT cell cells_x[8].cells_y[8].CELL/state_q_i_2__33, with 2 or more inputs, drives asynchronous preset/clear pin(s) cells_x[1].cells_y[1].CELL/state_q_reg/CLR,
 cells_x[1].cells_y[2].CELL/state_q_reg/CLR,
 cells_x[1].cells_y[3].CELL/state_q_reg/CLR,
 cells_x[1].cells_y[4].CELL/state_q_reg/CLR,
