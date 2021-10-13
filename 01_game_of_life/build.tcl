@@ -1,4 +1,5 @@
 open_project ./xilinx/01_game_of_life.xpr
+set_property SEVERITY {Warning} [get_drc_checks NSTD-1]
 add_files { conway_cell.sv decoder_1_to_2.sv decoder_2_to_4.sv decoder_3_to_8.sv led_array_driver.sv main.sv }
 
 reset_run synth_1
