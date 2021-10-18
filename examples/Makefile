@@ -21,3 +21,9 @@ test_shift_register : test_shift_register.sv shift_register.sv
 
 waves_shift_register: test_shift_register
 	gtkwave shift_register.vcd -a wave_cfgs/shift_register.gtkw
+
+test_multiplier : multiplier.sv test_multiplier.sv
+	${IVERILOG} $^ -o test_multiplier.bin && ${VVP} test_multiplier.bin 
+
+waves_multiplier : test_multiplier
+	gtkwave muliplier.vcd -a wave_cfgs/multiplier.gtkw

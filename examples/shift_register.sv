@@ -2,7 +2,6 @@
 
 /*
 A synchronous register (batch of flip flops) with rst > ena.
-
 */
 
 module shift_register(clk, ena, rst, data_in, d, q);

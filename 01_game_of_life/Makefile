@@ -39,4 +39,4 @@ clean:
 
 # Call this to generate your submission zip file.
 submission:
-	zip submission.zip *.sv README.md docs/* xilinx/*.xpr *.xdc
+	zip submission.zip Makefile *.sv README.md docs/* xilinx/*.xpr *.xdc

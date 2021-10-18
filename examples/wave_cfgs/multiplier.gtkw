@@ -1,0 +1,45 @@
+[*]
+[*] GTKWave Analyzer v3.3.106 (w)1999-2020 BSI
+[*] Thu Oct 14 07:22:37 2021
+[*]
+[dumpfile] "/home/avinash/src/olin-cafe-f21/examples/multiplier.vcd"
+[dumpfile_mtime] "Thu Oct 14 07:22:09 2021"
+[dumpfile_size] 212651
+[savefile] "/home/avinash/src/olin-cafe-f21/examples/wave_cfgs/multiplier.gtkw"
+[timestart] 2964600
+[size] 2552 1397
+[pos] -1 -1
+*-16.198273 3605000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] test_multiplier.
+[sst_width] 291
+[signals_width] 294
+[sst_expanded] 1
+[sst_vpaned_height] 412
+@28
+test_multiplier.UUT.rst
+test_multiplier.UUT.clk
+test_multiplier.UUT.ready_i
+test_multiplier.UUT.valid_i
+@24
+test_multiplier.UUT.a[2:0]
+test_multiplier.UUT.b[2:0]
+@c00024
+test_multiplier.UUT.state[1:0]
+@28
+(0)test_multiplier.UUT.state[1:0]
+(1)test_multiplier.UUT.state[1:0]
+@1401200
+-group_end
+@28
+>-1100
+test_multiplier.UUT.compute_done
+>0
+test_multiplier.UUT.early_exit
+test_multiplier.UUT.compute_done
+test_multiplier.UUT.ready_o
+test_multiplier.UUT.valid_o
+@24
+>-700
+test_multiplier.UUT.product[5:0]
+[pattern_trace] 1
+[pattern_trace] 0
