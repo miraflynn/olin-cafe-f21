@@ -76,7 +76,7 @@ that we'll explore in further testbenches.
 task print_io;
     $display("*****************************************************************************");
     $display("s: %d, y: %d", s, y);
-    // $display("ds: %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d", d0, d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d11, d12, d13, d14, d15, d16, d17, d18, d19, d20, d21, d22, d23, d24, d25, d26, d27, d28, d29, d30, d31);
+    $display("ds: %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d", d0, d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d11, d12, d13, d14, d15, d16, d17, d18, d19, d20, d21, d22, d23, d24, d25, d26, d27, d28, d29, d30, d31);
 endtask
 
 
@@ -113,70 +113,70 @@ initial begin
   
   $display("Random testing.");
   for (int i = 0; i < 32; i = i + 1) begin : random_testing
-    // d0 = $random();
-    // d1 = $random();
-    // d2 = $random();
-    // d3 = $random();
-    // d4 = $random();
-    // d5 = $random();
-    // d6 = $random();
-    // d7 = $random();
-    // d8 = $random();
-    // d9 = $random();
-    // d10 = $random();
-    // d11 = $random();
-    // d12 = $random();
-    // d13 = $random();
-    // d14 = $random();
-    // d15 = $random();
-    // d16 = $random();
-    // d17 = $random();
-    // d18 = $random();
-    // d19 = $random();
-    // d20 = $random();
-    // d21 = $random();
-    // d22 = $random();
-    // d23 = $random();
-    // d24 = $random();
-    // d25 = $random();
-    // d26 = $random();
-    // d27 = $random();
-    // d28 = $random();
-    // d29 = $random();
-    // d30 = $random(); 
-    // d31 = $random();
-    d0 = 0;
-    d1 = 1;
-    d2 = 2;
-    d3 = 3;
-    d4 = 4;
-    d5 = 5;
-    d6 = 6;
-    d7 = 7;
-    d8 = 8;
-    d9 = 9;
-    d10 = 10;
-    d11 = 11;
-    d12 = 12;
-    d13 = 13;
-    d14 = 14;
-    d15 = 15;
-    d16 = 16;
-    d17 = 17;
-    d18 = 18;
-    d19 = 19;
-    d20 = 20;
-    d21 = 21;
-    d22 = 22;
-    d23 = 23;
-    d24 = 24;
-    d25 = 25;
-    d26 = 26;
-    d27 = 27;
-    d28 = 28;
-    d29 = 29;
-    d30 = 30; 
-    d31 = 31;
+    d0 = $random();
+    d1 = $random();
+    d2 = $random();
+    d3 = $random();
+    d4 = $random();
+    d5 = $random();
+    d6 = $random();
+    d7 = $random();
+    d8 = $random();
+    d9 = $random();
+    d10 = $random();
+    d11 = $random();
+    d12 = $random();
+    d13 = $random();
+    d14 = $random();
+    d15 = $random();
+    d16 = $random();
+    d17 = $random();
+    d18 = $random();
+    d19 = $random();
+    d20 = $random();
+    d21 = $random();
+    d22 = $random();
+    d23 = $random();
+    d24 = $random();
+    d25 = $random();
+    d26 = $random();
+    d27 = $random();
+    d28 = $random();
+    d29 = $random();
+    d30 = $random(); 
+    d31 = $random();
+    // d0 = 0;
+    // d1 = 1;
+    // d2 = 2;
+    // d3 = 3;
+    // d4 = 4;
+    // d5 = 5;
+    // d6 = 6;
+    // d7 = 7;
+    // d8 = 8;
+    // d9 = 9;
+    // d10 = 10;
+    // d11 = 11;
+    // d12 = 12;
+    // d13 = 13;
+    // d14 = 14;
+    // d15 = 15;
+    // d16 = 16;
+    // d17 = 17;
+    // d18 = 18;
+    // d19 = 19;
+    // d20 = 20;
+    // d21 = 21;
+    // d22 = 22;
+    // d23 = 23;
+    // d24 = 24;
+    // d25 = 25;
+    // d26 = 26;
+    // d27 = 27;
+    // d28 = 28;
+    // d29 = 29;
+    // d30 = 30; 
+    // d31 = 31;
     s = i;
     #1 print_io();
   end
@@ -196,38 +196,38 @@ end
 // Note: the triple === (corresponding !==) check 4-state (e.g. 0,1,x,z) values.
 //       It's best practice to use these for checkers!
 always @(d0, d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d11, d12, d13, d14, d15, d16, d17, d18, d19, d20, d21, d22, d23, d24, d25, d26, d27, d28, d29, d30, d31, s, y) begin
-  correct = (y==0 ? d0 :
-  (y==1 ? d1 :
-  (y==2 ? d2 :
-  (y==3 ? d3 :
-  (y==4 ? d4 :
-  (y==5 ? d5 :
-  (y==6 ? d6 :
-  (y==7 ? d7 :
-  (y==8 ? d8 :
-  (y==9 ? d9 :
-  (y==10 ? d10 :
-  (y==11 ? d11 :
-  (y==12 ? d12 :
-  (y==13 ? d13 :
-  (y==14 ? d14 :
-  (y==15 ? d15 :
-  (y==16 ? d16 :
-  (y==17 ? d17 :
-  (y==18 ? d18 :
-  (y==19 ? d19 :
-  (y==20 ? d20 :
-  (y==21 ? d21 :
-  (y==22 ? d22 :
-  (y==23 ? d23 :
-  (y==24 ? d24 :
-  (y==25 ? d25 :
-  (y==26 ? d26 :
-  (y==27 ? d27 :
-  (y==28 ? d28 :
-  (y==29 ? d29 :
-  (y==30 ? d30 : 
-  (y==31 ? d31 : 32))))))))))))))))))))))))))))))));
+  correct = (s==0 ? d0 :
+  (s==1 ? d1 :
+  (s==2 ? d2 :
+  (s==3 ? d3 :
+  (s==4 ? d4 :
+  (s==5 ? d5 :
+  (s==6 ? d6 :
+  (s==7 ? d7 :
+  (s==8 ? d8 :
+  (s==9 ? d9 :
+  (s==10 ? d10 :
+  (s==11 ? d11 :
+  (s==12 ? d12 :
+  (s==13 ? d13 :
+  (s==14 ? d14 :
+  (s==15 ? d15 :
+  (s==16 ? d16 :
+  (s==17 ? d17 :
+  (s==18 ? d18 :
+  (s==19 ? d19 :
+  (s==20 ? d20 :
+  (s==21 ? d21 :
+  (s==22 ? d22 :
+  (s==23 ? d23 :
+  (s==24 ? d24 :
+  (s==25 ? d25 :
+  (s==26 ? d26 :
+  (s==27 ? d27 :
+  (s==28 ? d28 :
+  (s==29 ? d29 :
+  (s==30 ? d30 : 
+  (s==31 ? d31 : 100000000))))))))))))))))))))))))))))))));
 
 //   assert(y === correct) else begin
 //     errors = errors + 1;
