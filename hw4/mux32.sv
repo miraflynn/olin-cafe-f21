@@ -2,7 +2,7 @@ module mux32(input   logic [31:0] d0, d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d
             input    logic [4:0] s,                     
             output   logic [31:0] y);   
     
-    logic [32:0] a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15;
+    logic [31:0] a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15;
     // logic [3:0] low, high;
 
     mux2 muxA0(d0, d1, s[0], a0);
@@ -22,7 +22,7 @@ module mux32(input   logic [31:0] d0, d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d
     mux2 muxA14(d28, d29, s[0], a14);
     mux2 muxA15(d30, d31, s[0], a15);
 
-    logic [32:0] b0, b1, b2, b3, b4, b5, b6, b7;
+    logic [31:0] b0, b1, b2, b3, b4, b5, b6, b7;
 
     mux2 muxB0(a0, a1, s[1], b0);
     mux2 muxB1(a2, a3, s[1], b1);
@@ -33,14 +33,14 @@ module mux32(input   logic [31:0] d0, d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d
     mux2 muxB6(a12, a13, s[1], b6);
     mux2 muxB7(a14, a15, s[1], b7);
 
-    logic [32:0] c0, c1, c2, c3
+    logic [31:0] c0, c1, c2, c3;
 
     mux2 muxC0(b0, b1, s[2], c0);
     mux2 muxC1(b2, b3, s[2], c1);
     mux2 muxC2(b4, b5, s[2], c2);
     mux2 muxC3(b6, b7, s[2], c3);
 
-    logic [32:0] penult0, penult1
+    logic [31:0] penult0, penult1;
 
     mux2 muxD0(c0, c1, s[3], penult0);
     mux2 muxD1(c2, c3, s[3], penult1);
