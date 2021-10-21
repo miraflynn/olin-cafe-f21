@@ -1,7 +1,7 @@
 Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
 -----------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2021.1 (lin64) Build 3247384 Thu Jun 10 19:36:07 MDT 2021
-| Date         : Tue Oct 12 21:25:38 2021
+| Date         : Thu Oct 21 16:50:35 2021
 | Host         : mira-latitude-ubuntu running 64-bit Ubuntu 20.04.3 LTS
 | Command      : report_utilization -file main_utilization_placed.rpt -pb main_utilization_placed.pb
 | Design       : main

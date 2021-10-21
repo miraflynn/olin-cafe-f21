@@ -2,8 +2,8 @@
 # Vivado v2021.1 (64-bit)
 # SW Build 3247384 on Thu Jun 10 19:36:07 MDT 2021
 # IP Build 3246043 on Fri Jun 11 00:30:35 MDT 2021
-# Start of session at: Tue Oct 12 21:24:49 2021
-# Process ID: 44903
+# Start of session at: Thu Oct 21 16:49:46 2021
+# Process ID: 6508
 # Current directory: /home/mira/Documents/olin-cafe-f21/01_game_of_life/xilinx/01_game_of_life.runs/synth_1
 # Command line: vivado -log main.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source main.tcl
 # Log file: /home/mira/Documents/olin-cafe-f21/01_game_of_life/xilinx/01_game_of_life.runs/synth_1/main.vds
