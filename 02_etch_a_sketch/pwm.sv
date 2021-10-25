@@ -30,10 +30,10 @@ logic tick_rst;
 
 always_comb tick_rst = rst | counter_comparator;
 
-always_ff @( posedge step ) begin
+always_ff @( posedge clk ) begin
   if(tick_rst) begin
     counter <= 0;
-  end else if (ena) begin
+  end else if (ena & step) begin
     counter <= counter + 1;
   end
 end
