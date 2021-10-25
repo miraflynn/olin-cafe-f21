@@ -23,12 +23,6 @@ always_ff @( posedge clk) begin : pulsegen
   end else if (ena) begin
     counter <= counter + 1;
   end
-// counter = counter + 1;
-
-// out = ticks == counter;
-// if(out)
-//   counter = 0;
-// end
 end
 
 always_comb counter_comparator = counter >= (ticks - 1);
