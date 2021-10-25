@@ -30,7 +30,7 @@ logic tick_rst;
 
 always_comb tick_rst = rst | counter_comparator;
 
-always_ff @( posedge step, posedge rst) begin : pulsegen
+always_ff @( posedge step ) begin
   if(tick_rst) begin
     counter <= 0;
   end else if (ena) begin
