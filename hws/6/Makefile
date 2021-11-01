@@ -25,7 +25,7 @@ waves_sra : test_sra
 	gtkwave sra.fst
 
 test_serial: test_parallel_to_serial_converter.sv parallel_to_serial_converter.sv
-	${IVERILOG} $^ -o test_serial.bin && ${VVP} test_serial.bin -fst
+	${IVERILOG} $^ -o test_serial.bin && ${VVP} test_serial.bin
 waves_serial: test_serial
 	gtkwave -a parallel_to_serial_converter.gtkw parallel_to_serial_converter.fst
 
