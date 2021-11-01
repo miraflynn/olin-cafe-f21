@@ -12,7 +12,6 @@ input wire ready_o;
 input wire [N-1:0] a, b;
 output logic [2*N-1:0] product;
 
-
 typedef enum logic [1:0] {IDLE, COMPUTING, DONE, ERROR} state_t;
 state_t state, next_state;
 
@@ -24,7 +23,7 @@ always_comb begin : output_comb_logic
 end
 
 always_comb begin: compute_done_logic
-  early_exit = valid_i & ( (a == 0) | (b == 0) );
+  early_exit = valid_i & ( (a == 0)/* | (b == 0) */);
   compute_done = ~(counter < (b-1)) | early_exit;
 end
 
