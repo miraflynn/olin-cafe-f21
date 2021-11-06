@@ -15,7 +15,7 @@ waves_sll : test_sll
 	gtkwave sll.fst
 
 test_srl : test_srl.sv shift_right_logical.sv $(SRCS)
-	${IVERILOG} $^ -o test_srl.bin && ${VVP} test_srl.bin
+	${IVERILOG} $^ -o test_srl.bin && ${VVP} test_srl.bin -fst
 waves_srl : test_srl
 	gtkwave srl.fst
 
