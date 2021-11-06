@@ -1,22 +1,28 @@
-module slt(a, b, out);
+module sltu(a, b, out);
 parameter N = 32;
-input wire signed [N-1:0] a, b;
+input wire [N-1:0] a, b;
+wire [N:0] x = {1'b0, a[N-1:0]};
+wire [N:0] y = {1'b0, b[N-1:0]};
 output logic out;
 
 // Using only *structural* combinational logic, make a module that computes if a is less than b!
-// Note: this assumes that the two inputs are signed: aka should be interpreted as two's complement.
+// Note: this assumes that the two inputs are unsigned
 
 // Copy any other modules you use into this folder and update the Makefile accordingly.
 
-// SOLUTION START
 // Remember that you can make a subtractor with a 32 bit adder if you set the carry_in bit high, and invert one of the inputs.
-logic [N-1:0] not_b;
-always_comb not_b = ~b;
+// always_comb begin
+    // x[N-1:0] = a[N-1:0];
+    // y[N-1:0] = b[N-1:0];
+// end
+
+logic [N:0] not_y;
+always_comb not_y = ~y;
 wire c_out;
-wire [N-1:0] difference; 
-adder_n #(.N(N)) SUBTRACTOR(
-  .a(a), .b(not_b), .c_in(1'b1),
-  .c_out(c_out), .sum(difference[N-1:0])
+wire [N:0] difference; 
+adder_n #(.N(N+1)) SUBTRACTOR(
+  .a(x), .b(not_y), .c_in(1'b1),
+  .c_out(c_out), .sum(difference[N:0])
 );
 
 // The main trick in this problem is that we have to handle our subtractor's 
@@ -35,31 +41,14 @@ adder_n #(.N(N)) SUBTRACTOR(
 // positive number is 1 less than the largest possible negative number you need
 // the two operands to be the same sign to cause any issues.
 
-`ifdef MUX_APPROACH
-
-mux4 #(.N(1)) SLT_MUX(
-  .switch({a[31], b[31]}), // switch on the sign bits
-  .in0(difference[N-1]), .in1(1'b0), .in2(1'b1), .in3(difference[N-1]),
-  .out(out)
-);
-`endif
-
-`define CLEVER_GATES_APPROACH
-`ifdef CLEVER_GATES_APPROACH
-
-logic inputs_have_different_signs;
-logic a_negative_b_positive;
-logic a_positive_b_negative;
-always_comb begin : slt_all_cases
-  a_negative_b_positive = a[31] & ~ b[31];
-  a_positive_b_negative = ~a[31] & b[31];
-  inputs_have_different_signs = a[31] ^ b[31]; // unused, but kinda neat. 
-  out = ~a_positive_b_negative & (a_negative_b_positive |  difference[31]);
+always_comb begin
+    out = ((x[N] ~^ y[N]) & difference[N]);
 end
-
-`endif
-
-// SOLUTION END
+// mux4 #(.N(1)) SLTU_MUX(
+//   .switch({a[32], b[32]}), // switch on the sign bits
+//   .in0(difference[N]), .in1(1'b0), .in2(1'b1), .in3(difference[N]),
+//   .out(out)
+// );
 
 endmodule
 
