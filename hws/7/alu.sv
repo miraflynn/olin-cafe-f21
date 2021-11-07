@@ -49,7 +49,7 @@ logic [N-1:0] sra_result;
 shift_left_logical #(.N(N)) SRA(.in(a), .shamt(shamt), .out(sra_result));
 
 mux4 #(.N(N)) SHIFT_MUX(
-    .in0('x),
+    .in0(0),
     .in1(sll_result),
     .in2(srl_result),
     .in3(sra_result),
@@ -58,6 +58,9 @@ mux4 #(.N(N)) SHIFT_MUX(
 );
 always_comb begin
     shift_result = (shamt == b) ? shift_result_temp : 0;
+    // This is a bit strange but it seems that comparing two values with 
+    // different numbers of bits works by filling the shorter one with zeros on 
+    // the left
 end
 
 
@@ -95,7 +98,7 @@ sltu #(.N(N)) SLTU(.a(a), .b(b), .out(sltu_result));
 // ALU_SLT  = 4'b1101, // 13
 // ALU_SLTU = 4'b1111  // 15
 
-logic [N-1:0] error = 'x;
+logic [N-1:0] error = 0;
 
 mux16 #(.N(N)) CONTROL_MUX(
     .in0(error),
@@ -122,6 +125,19 @@ logic [N-1:0] zero_check = 0;
 always_comb begin
     zero = result == zero_check;
     equal = a == b;
+
+    overflow = 
+    ((control == 4'b1000) & 
+    (a[N-1] == b[N-1]) &
+    (a[N-1] != add_result[N-1])) |
+
+    // This throws an overflow error for SLTU even though my SLTU does not 
+    // overflow
+    // Also sorry for the unholy parenthesis, there was some priority stuff 
+    // going on in my code so I added parenthesis everywhere possible
+    (((control == 4'b1100) | (control == 4'b1101) | (control == 4'b1111)) & 
+    ((a[N-1] != b[N-1]) & 
+    a[N-1] != add_result[N-1]));
 end
 
 endmodule
