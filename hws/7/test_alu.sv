@@ -5,8 +5,8 @@
 module test_alu;
 
 parameter N = 32; // Don't need to support other numbers, just using this as a constant.
-parameter N_TEST_VECTOR = 7; // Change this number based on how many cases you implement in alu_testcases.memh
-parameter N_RANDOM_TESTS = 100;
+parameter N_TEST_VECTOR = 10; // Change this number based on how many cases you implement in alu_testcases.memh
+parameter N_RANDOM_TESTS = 1000;
 parameter MAX_ERRORS = 10; // You can change this number to have the test fail earlier or later if too many errors are encounterd. Can make it easier to sift through waveforms.
 
 logic [N-1:0] a, b; // Inputs to the ALU.

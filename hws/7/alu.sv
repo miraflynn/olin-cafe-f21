@@ -35,6 +35,10 @@ always_comb begin
 end
 
 // SHIFTERS
+
+// NOTE: My solution here returns all 0s for b = 32. The alu_behavioural works 
+// for b = 32. The assignment document states to return all 0s for b >= 32, 
+// which is what mine does.
 wire [$clog2(N)-1:0] shamt = b[$clog2(N)-1:0];
 logic [N-1:0] shift_result;
 logic [N-1:0] shift_result_temp;
@@ -43,10 +47,10 @@ logic [N-1:0] sll_result;
 shift_left_logical #(.N(N)) SLL(.in(a), .shamt(shamt), .out(sll_result));
 // SRL
 logic [N-1:0] srl_result;
-shift_left_logical #(.N(N)) SRL(.in(a), .shamt(shamt), .out(srl_result));
+shift_right_logical #(.N(N)) SRL(.in(a), .shamt(shamt), .out(srl_result));
 // SRA
 logic [N-1:0] sra_result;
-shift_left_logical #(.N(N)) SRA(.in(a), .shamt(shamt), .out(sra_result));
+shift_right_arithmetic #(.N(N)) SRA(.in(a), .shamt(shamt), .out(sra_result));
 
 mux4 #(.N(N)) SHIFT_MUX(
     .in0(0),
