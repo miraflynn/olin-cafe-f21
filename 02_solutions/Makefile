@@ -34,10 +34,10 @@ waves_i2c_controller: test_i2c_controller
 	gtkwave i2c_controller.fst -a tests/i2c_controller.gtkw
 
 memories/ili9341_init.memh: generate_memories.py
-	./generate_memories.py --memory ili9341 --out memories/ili9341_init.memh
+	python3 ./generate_memories.py --memory ili9341 --out memories/ili9341_init.memh
 
 memories/fibonacci.memh: generate_memories.py
-	./generate_memories.py --memory fibonacci --out memories/fibonacci.memh
+	python3 ./generate_memories.py --memory fibonacci --out memories/fibonacci.memh
 
 test_block_rom : memories/fibonacci.memh block_rom.sv tests/test_block_rom.sv
 	${IVERILOG} block_rom.sv tests/test_block_rom.sv -o test_block_rom.bin && ${VVP} test_block_rom.bin ${VVP_POST}

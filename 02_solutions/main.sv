@@ -115,14 +115,14 @@ end
 always_comb begin 
   case(vram_state)
     S_VRAM_CLEARING: begin
-      vram_wr_data = NAVY;
+      vram_wr_data = BLACK;
       vram_wr_ena = 1;
       vram_wr_addr = vram_clear_counter;
     end
     S_VRAM_ACTIVE: begin
       vram_wr_ena = touch0.valid;
       vram_wr_addr = DISPLAY_WIDTH*touch0.y + touch0.x;
-      vram_wr_data = PINK;
+      vram_wr_data = WHITE;
     end
   endcase
 end

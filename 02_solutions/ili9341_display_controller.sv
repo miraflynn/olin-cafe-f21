@@ -72,7 +72,7 @@ block_rom #(.INIT("memories/ili9341_init.memh"), .W(8), .L(ROM_LENGTH)) ILI9341_
 
 
 // Main FSM
-enum logic [2:0] {
+enum logic [2:0] { // a bunch of states
   S_INIT = 0,
   S_INCREMENT_PIXEL = 1,
   S_START_FRAME = 2,
@@ -94,7 +94,8 @@ enum logic [2:0] {
   S_CFG_DONE
 } cfg_state, cfg_state_after_wait;
 
-ILI9341_color_t pixel_color;
+// ILI9341_color_t pixel_color;
+logic [15:0] pixel_color;
 logic [$clog2(DISPLAY_WIDTH):0] pixel_x;
 logic [$clog2(DISPLAY_HEIGHT):0] pixel_y;
 
@@ -106,46 +107,51 @@ ILI9341_register_t current_command;
 */
 
 always_comb case(state)
-  S_START_FRAME, S_TX_PIXEL_DATA_START : i_valid = 1;
-  S_INIT : begin
+  S_START_FRAME, S_TX_PIXEL_DATA_START : i_valid = 1; // input valid is 1
+  S_INIT : begin // if display state is init
     case(cfg_state)
-      S_CFG_SEND_CMD, S_CFG_SEND_DATA: i_valid = 1;
-      default: i_valid = 0;
+      S_CFG_SEND_CMD, S_CFG_SEND_DATA: i_valid = 1; // if config is send command or send data, then input valid is 1
+      default: i_valid = 0; // otherwise, input invalid
     endcase
   end
-  default: i_valid = 0;
+  default: i_valid = 0; // otherwise input invalid
 endcase
   
 always_comb case (state) 
-  S_START_FRAME : current_command = RAMWR;
-  default : current_command = NOP;
+  S_START_FRAME : current_command = RAMWR; // if start frame, send the write mem command
+  default : current_command = NOP; // otherwise, command is do nothing
+
 endcase
 
 always_comb case(state)
-  S_INIT: i_data = {8'd0, rom_data};
-  S_START_FRAME: i_data = {8'd0, current_command};
-  default: i_data = pixel_color;
+  S_INIT: i_data = {8'd0, rom_data}; // if init, then data input of spi is zeros and then the rom data (resetting)
+  S_START_FRAME: i_data = {8'd0, current_command}; // if start frame, then data input of spi is zeros and then current command (send command)
+  default: i_data = pixel_color; // otherwise, send the pixel color to spi controller
 endcase
 
 always_comb case (state)
-  S_INIT, S_START_FRAME: spi_mode = WRITE_8;
-  default : spi_mode = WRITE_16;
+  S_INIT, S_START_FRAME: spi_mode = WRITE_8; // if init or start frame, sending command so writing 8 bits
+  default : spi_mode = WRITE_16; // otherwise, writing 16 bits
 endcase
 
 always_comb begin
-  hsync = pixel_x == (DISPLAY_WIDTH-1);
-  vsync = hsync & (pixel_y == (DISPLAY_HEIGHT-1));
+  hsync = pixel_x == (DISPLAY_WIDTH-1); // hsync is high if x is max
+  vsync = hsync & (pixel_y == (DISPLAY_HEIGHT-1)); // vsync is high if on last row and hsync (so last pixel)
 end
 
 
 
 
 always_comb begin  : draw_cursor_logic
-  vram_rd_addr = pixel_y*DISPLAY_WIDTH + pixel_x;
-  if(touch.valid & (touch.x[8:2] == pixel_x[8:2]) 
-    & (touch.y[8:2] == pixel_y[8:2])) begin
-    pixel_color = WHITE;
+  vram_rd_addr = pixel_y*DISPLAY_WIDTH + pixel_x; // set proper read address for pixel
+  if(touch.valid & (touch.x[3:2] == pixel_x[3:2])
+    & (touch.y[3:2] == pixel_y[3:2])) begin 
+      // for original implementation, if the location being written to, rounded to 4 pixels, is the same as the touch input location, then write. This means that there is a 4x4 square being drawn at the touch location.
+      // for our modification, we're only looking at 2nd-3rd bits. This leads to the pixel location repeating, leading to our grid
+    // pixel_color = RED;
+    pixel_color = {touch.x[8:0], touch.y[8:0]};
   end else begin
+    //pixel_color = RED; // I don't remember what this was originally, but this code only works on Gati's computer so I'm not sure what changing this does.
     pixel_color = vram_rd_data;
   end
 end
@@ -154,7 +160,7 @@ logic [$clog2(CFG_CMD_DELAY):0] cfg_delay_counter;
 logic [7:0] cfg_bytes_remaining;
 
 always_ff @(posedge clk) begin : main_fsm
-  if(rst) begin
+  if(rst) begin // set a whole bunch of things to 0 when reset
     state <= S_INIT;
     cfg_state <= S_CFG_GET_DATA_SIZE;
     cfg_state_after_wait <= S_CFG_GET_DATA_SIZE;
