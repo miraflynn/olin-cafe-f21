@@ -27,7 +27,7 @@ Recommended:
   - [BK Precision 9132B](https://www.bkprecision.com/products/power-supplies/9132B-triple-output-programmable-dc-power-supply-2-0-60v-3a-1-0-5v-3a.html)
 - Oscilloscope
   - any 2-4 channel with at least 100MHaz bandwidth is fine
-  - [Rigol](https://www.rigolna.com/products/digital-oscilloscopes/1000z/) makes some decent budget options, their DS1102Z-E is a solid 2 channel scope, and the DS1104Z Plus has 4 channels and can be exanded to include a logic probe which would replace a stand alone logic analyzer.
+  - [Rigol](https://www.rigolna.com/products/digital-oscilloscopes/1000z/) makes some decent budget options, their DS1102Z-E is a solid 2 channel scope, and the DS1104Z Plus has 4 channels and can be expanded to include a logic probe which would replace a stand alone logic analyzer.
   - [Digilent Analog Discovery Pro](https://digilent.com/reference/test-and-measurement/analog-discovery-pro-3x50/specifications) - it doesn't have a screen, but it is portable, has some great specifications, and has a built in logic analyzer. I haven't tested it yet but it could be a good "buy it for life" option.
 
 # Software
@@ -38,6 +38,7 @@ Contact the [maintainer](mailto:avinash+fpga@nonholonomy.com) if you find any is
 Supported Linux Distros:
 - [*] Ubuntu 20.04
 - [*] Gentoo
+- [ ] Arch (in progress)
 
 Last, a note on philosophy - there are a lot of techniques to batch together the install of all of these tools (virtual machines, Docker/containers, build scripts, etc.), but a large part of being a good embedded engineer is know how to maintain and install a large set of tools with low to minimal documentation. If you are new to Linux command line/bash installation I recommend you work through the following tutorials before proceeding:
   - [Command Line for Beginners](https://ubuntu.com/tutorials/command-line-for-beginners#1-overview).
