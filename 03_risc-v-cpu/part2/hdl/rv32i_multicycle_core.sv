@@ -51,7 +51,6 @@ register_file REGISTER_FILE(
 );
 
 // Non-architecture register: save register read data for future cycles.
-// TODO(avinash) leave the ena as 1? Let students figure that out? rename output better so it's clear that it's register file data from one level behind it?
 wire [31:0] reg_A, reg_B;
 register #(.N(32)) REGISTER_A (.clk(clk), .rst(rst), .ena(1'b1), .d(reg_data1), .q(reg_A));
 register #(.N(32)) REGISTER_B (.clk(clk), .rst(rst), .ena(1'b1), .d(reg_data1), .q(reg_B));
@@ -248,16 +247,16 @@ always_comb begin : MULTICYCLE_FSM_COMB_OUTPUTS
   case(state)
     S_FETCH: begin
       mem_wr_ena = 0;
-      PC_ena = 0;
+      PC_ena = 1;
       reg_write = 0;
-      alu_src_a = ALU_SRC_A_RF;
-      alu_src_b = ALU_SRC_B_RF;
+      alu_src_a = ALU_SRC_A_PC;
+      alu_src_b = ALU_SRC_B_4;
       IR_write = 1;
       ALU_ena = 0;
       mem_data_ena = 0;
       mem_src = MEM_SRC_PC;
       result_src = RESULT_SRC_ALU;
-      alu_control = ALU_INVALID;
+      alu_control = ALU_ADD;
     end
     S_DECODE: begin
       mem_wr_ena = 0;
@@ -290,25 +289,25 @@ always_comb begin : MULTICYCLE_FSM_COMB_OUTPUTS
       PC_ena = 0;
       reg_write = 0;
       alu_src_a = ALU_SRC_A_RF;
-      alu_src_b = ALU_SRC_B_RF;
+      alu_src_b = ALU_SRC_B_IMM;
       IR_write = 0;
-      ALU_ena = 0;
+      ALU_ena = 1;
       mem_data_ena = 0;
       mem_src = MEM_SRC_PC;
       result_src = RESULT_SRC_ALU;
-      alu_control = ALU_INVALID;
+      alu_control = ALU_ADD; // Use my funct values to set the operation
     end
     S_ALU_WRITEBACK: begin
       mem_wr_ena = 0;
       PC_ena = 0;
-      reg_write = 0;
+      reg_write = 1;
       alu_src_a = ALU_SRC_A_RF;
       alu_src_b = ALU_SRC_B_RF;
       IR_write = 0;
       ALU_ena = 0;
       mem_data_ena = 0;
       mem_src = MEM_SRC_PC;
-      result_src = RESULT_SRC_ALU;
+      result_src = RESULT_SRC_ALU_LAST;
       alu_control = ALU_INVALID;
     end
     default: begin
