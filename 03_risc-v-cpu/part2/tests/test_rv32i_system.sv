@@ -3,7 +3,7 @@
 
 module test_rv32i_system;
 
-localparam MAX_CYCLES = 10;
+localparam MAX_CYCLES = 100;
 
 logic clk, rst, ena;
 

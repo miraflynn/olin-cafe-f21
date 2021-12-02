@@ -62,7 +62,7 @@ enum logic [1:0] {ALU_SRC_A_PC, ALU_SRC_A_RF, ALU_SRC_A_OLD_PC} alu_src_a;
 enum logic [1:0] {ALU_SRC_B_RF, ALU_SRC_B_IMM, ALU_SRC_B_4} alu_src_b;
 logic [31:0] src_a, src_b;
 wire [31:0] alu_result;
-alu_control_t alu_control;
+alu_control_t alu_control, ri_alu_control;
 wire overflow;
 wire zero;
 wire equal;
@@ -85,6 +85,25 @@ always_comb begin : ALU_MUX_B
     ALU_SRC_B_IMM: src_b = extended_immediate;
     ALU_SRC_B_4: src_b = 32'd4;
     default: src_b = 0;
+  endcase
+end
+
+always_comb begin : ALU_CONTROL_DECODING
+  case(funct3)
+    3'b000 : begin
+      if(rtype & funct7[5]) ri_alu_control = ALU_SUB;
+      else ri_alu_control = ALU_ADD;
+    end
+    3'b001 : ri_alu_control = ALU_SLL;
+    3'b010 : ri_alu_control = ALU_SLT;
+    3'b011 : ri_alu_control = ALU_SLTU;
+    3'b100 : ri_alu_control = ALU_XOR;
+    3'b101 : begin
+      if(funct7[5]) ri_alu_control = ALU_SRL;
+      else ri_alu_control = ALU_SRA;
+    end
+    3'b110 : ri_alu_control = ALU_OR;
+    3'b111 : ri_alu_control = ALU_AND;
   endcase
 end
 
@@ -270,7 +289,6 @@ always_comb begin : MULTICYCLE_FSM_COMB_OUTPUTS
       mem_src = MEM_SRC_PC;
       result_src = RESULT_SRC_ALU;
       alu_control = ALU_INVALID;
-      // could get started on setting alu control here, but why be too crazy about it.
     end
     S_EXECUTE_R: begin
       mem_wr_ena = 0;
@@ -283,7 +301,7 @@ always_comb begin : MULTICYCLE_FSM_COMB_OUTPUTS
       mem_data_ena = 0;
       mem_src = MEM_SRC_PC;
       result_src = RESULT_SRC_ALU;
-      alu_control = ALU_INVALID;
+      alu_control = ri_alu_control;
     end
     S_EXECUTE_I: begin
       mem_wr_ena = 0;
@@ -295,21 +313,8 @@ always_comb begin : MULTICYCLE_FSM_COMB_OUTPUTS
       ALU_ena = 1;
       mem_data_ena = 0;
       mem_src = MEM_SRC_PC;
-      result_src = RESULT_SRC_ALU; 
-      case(funct3)
-        FUNCT3_ADDI : alu_control = ALU_ADD;
-        FUNCT3_SLLI : alu_control = ALU_SLL;
-        FUNCT3_SLTI : alu_control = ALU_SLT;
-        FUNCT3_SLTIU : alu_control = ALU_SLTU;
-        FUNCT3_XORI : alu_control = ALU_XOR;
-        FUNCT3_ORI : alu_control = ALU_OR;
-        FUNCT3_ANDI : alu_control = ALU_AND;
-        FUNCT3_SHIFT_RIGHT : begin
-          if(funct7[5]) alu_control = ALU_SRA;
-          else alu_control = ALU_SRL;
-        end
-        default: alu_control = ALU_INVALID;
-      endcase
+      result_src = RESULT_SRC_ALU;
+      alu_control = ri_alu_control;
     end
     S_ALU_WRITEBACK: begin
       mem_wr_ena = 0;
@@ -322,6 +327,48 @@ always_comb begin : MULTICYCLE_FSM_COMB_OUTPUTS
       mem_data_ena = 0;
       mem_src = MEM_SRC_PC;
       result_src = RESULT_SRC_ALU_LAST;
+      alu_control = ALU_INVALID;
+    end
+    S_MEM_ADDR: begin
+      mem_wr_ena = 0;
+      PC_ena = 0;
+      reg_write = 0;
+      alu_src_a = ALU_SRC_A_RF;
+      alu_src_b = ALU_SRC_B_IMM;
+      IR_write = 0;
+      ALU_ena = 1;
+      mem_data_ena = 0;
+      mem_src = MEM_SRC_RESULT;
+      result_src = RESULT_SRC_ALU;
+      alu_control = ALU_ADD;
+    end
+    S_MEM_READ: begin
+      mem_wr_ena = 0;
+      PC_ena = 0;
+      reg_write = 0;
+      alu_src_a = ALU_SRC_A_RF;
+      alu_src_b = ALU_SRC_B_IMM;
+      IR_write = 0;
+      ALU_ena = 1;
+      mem_data_ena = 0;
+      mem_src = MEM_SRC_PC;
+      result_src = RESULT_SRC_ALU_LAST;
+      alu_control = ALU_INVALID;
+    end
+    S_MEM_WRITE: begin
+      
+    end
+    S_MEM_WRITEBACK: begin
+      mem_wr_ena = 0;
+      PC_ena = 0;
+      reg_write = 0;
+      alu_src_a = ALU_SRC_A_RF;
+      alu_src_b = ALU_SRC_B_IMM;
+      IR_write = 0;
+      ALU_ena = 1;
+      mem_data_ena = 0;
+      mem_src = MEM_SRC_RESULT;
+      result_src = RESULT_SRC_ALU;
       alu_control = ALU_INVALID;
     end
     default: begin

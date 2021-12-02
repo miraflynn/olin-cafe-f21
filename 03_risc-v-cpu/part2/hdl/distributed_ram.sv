@@ -23,12 +23,14 @@ input clk;
 input wr_ena;
 input wire [$clog2(L)-1:0] addr;
 input wire [W-1:0] wr_data;
-output logic [W-1:0] rd_data;
+output wire [W-1:0] rd_data;
 
-logic [W-1:0] ram [L-1:0];
+logic [W-1:0] ram [0:L-1];
 
 initial begin
+  $display("###########################################");
   $display("Initializing distributed ram from file %s.", INIT);
+  $display("###########################################");
   $readmemh(INIT, ram);
 end
 
@@ -37,8 +39,6 @@ always_ff @(posedge clk) begin
 end
 
 // icarus verilog does not like always_comb in inferred memories
-always @(addr) begin
-  rd_data = ram[addr];
-end
+assign rd_data = ram[addr];
 
 endmodule

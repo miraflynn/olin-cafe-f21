@@ -24,9 +24,9 @@ input clk;
 input wr_ena0, wr_ena1;
 input wire [$clog2(L)-1:0] addr0, addr1;
 input wire [W-1:0] wr_data0, wr_data1;
-output logic [W-1:0] rd_data0, rd_data1;
+output wire [W-1:0] rd_data0, rd_data1;
 
-logic [W-1:0] ram [L-1:0];
+logic [W-1:0] ram [0:L-1];
 
 initial begin
   $display("Initializing distributed ram from file %s.", INIT);
@@ -39,7 +39,7 @@ always_ff @(posedge clk) begin
 end
 
 // icarus verilog doesn't like always_comb here.
-always @(addr0) rd_data0 = ram[addr0];
-always @(addr1) rd_data1 = ram[addr1];
+assign rd_data0 = ram[addr0];
+assign rd_data1 = ram[addr1];
 
 endmodule

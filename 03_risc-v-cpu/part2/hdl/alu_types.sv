@@ -1,6 +1,7 @@
 `ifndef ALU_TYPES_H
 `define ALU_TYPES_H
 
+
 typedef enum logic [3:0] {
   ALU_AND  = 4'b0001,
   ALU_OR   = 4'b0010,
@@ -15,6 +16,24 @@ typedef enum logic [3:0] {
   ALU_INVALID = 4'b0000
 } alu_control_t;
 
+/*
+// By definition: {funct7[5], funct3}
+// TODO (finish this)
+typedef enum logic [3:0] {
+  RV32I_ALU_AND  = 4'b0111,
+  RV32I_ALU_OR   = 4'b0110,
+  RV32I_ALU_XOR  = 4'b0011,
+  RV32I_ALU_SLL  = 4'b0101,
+  RV32I_ALU_SRL  = 4'b0110,
+  RV32I_ALU_SRA  = 4'b0111,
+  RV32I_ALU_ADD  = 4'b1000,
+  RV32I_ALU_SUB  = 4'b1100,
+  RV32I_ALU_SLT  = 4'b1101,
+  RV32I_ALU_SLTU = 4'b1111,
+  RV32I_ALU_INVALID = 4'b0000
+} alu_rv32i_control_t;
+
+*/
 function string alu_control_name(alu_control_t control);
   case(control)
     ALU_AND  : alu_control_name = " AND ";

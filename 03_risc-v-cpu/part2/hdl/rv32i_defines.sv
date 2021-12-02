@@ -31,4 +31,16 @@ typedef enum logic [2:0] {
   FUNCT3_LOAD_LHU = 3'b101
 } funct3_load_t;
 
+typedef enum logic [2:0] {
+  FUNCT3_ADDI = 3'b000,
+  FUNCT3_SLLI = 3'b001,
+  FUNCT3_SLTI = 3'b010,
+  FUNCT3_SLTIU = 3'b011,
+  FUNCT3_XORI = 3'b100,
+  FUNCT3_SHIFT_RIGHT = 3'b101, // Needs a funct7 bit to determine!
+  FUNCT3_ORI = 3'b110,
+  FUNCT3_ANDI = 3'b111
+} funct3_itype_t;
+
+
 `endif // RV32I_DEFINES

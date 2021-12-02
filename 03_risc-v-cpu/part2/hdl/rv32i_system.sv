@@ -30,7 +30,7 @@ rv32i_multicycle_core CORE (
 // Note - will eventually be its own module.
 logic [$clog2(RAM_L)-1:0] mem_addr0, mem_addr1;
 always_comb begin : mmu_address_mapping
-  mem_addr0 = core_mem_addr[$clog2(RAM_L)-1:0];
+  mem_addr0 = core_mem_addr[$clog2(RAM_L)-1+2:2];
 end
 
 distributed_ram #(.W(32), .L(RAM_L), .INIT(`INITIAL_MEMORY)) 

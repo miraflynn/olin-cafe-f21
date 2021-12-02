@@ -1,20 +1,20 @@
 [*]
-[*] GTKWave Analyzer v3.3.109 (w)1999-2020 BSI
-[*] Mon Nov 29 19:55:45 2021
+[*] GTKWave Analyzer v3.3.106 (w)1999-2020 BSI
+[*] Mon Nov 29 23:23:24 2021
 [*]
-[dumpfile] "/home/avinash/src/nonholonomy/fpga-labs/03_risc-v-cpu/rv32i_system.fst"
-[dumpfile_mtime] "Mon Nov 29 19:54:37 2021"
-[dumpfile_size] 3015
-[savefile] "/home/avinash/src/nonholonomy/fpga-labs/03_risc-v-cpu/tests/rv32i_system.gtkw"
-[timestart] 0
-[size] 1120 1455
+[dumpfile] "/home/avinash/src/olin-cafe-f21/03_risc-v-cpu/part2/rv32i_system.fst"
+[dumpfile_mtime] "Mon Nov 29 23:22:27 2021"
+[dumpfile_size] 3956
+[savefile] "/home/avinash/src/olin-cafe-f21/03_risc-v-cpu/part2/tests/rv32i_system.gtkw"
+[timestart] 15030
+[size] 1904 1146
 [pos] -1 -1
-*-15.640026 25000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-11.640026 25000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] test_rv32i_system.
 [treeopen] test_rv32i_system.UUT.
 [treeopen] test_rv32i_system.UUT.CORE.
 [sst_width] 227
-[signals_width] 134
+[signals_width] 222
 [sst_expanded] 1
 [sst_vpaned_height] 438
 @28
@@ -24,9 +24,24 @@ test_rv32i_system.UUT.CORE.clk
 test_rv32i_system.UUT.CORE.state[3:0]
 test_rv32i_system.UUT.CORE.PC[31:0]
 test_rv32i_system.UUT.CORE.IR[31:0]
-@201
--Register File
+test_rv32i_system.UUT.CORE.mem_addr[31:0]
+test_rv32i_system.UUT.CORE.mem_rd_data[31:0]
+test_rv32i_system.UUT.CORE.op[6:0]
+test_rv32i_system.UUT.CORE.extended_immediate[31:0]
+@200
+-ALU
 @22
+test_rv32i_system.UUT.CORE.ALU.a[31:0]
+test_rv32i_system.UUT.CORE.ALU.b[31:0]
+test_rv32i_system.UUT.CORE.alu_result[31:0]
+test_rv32i_system.UUT.CORE.alu_last[31:0]
+@200
+-Register File
+@28
+test_rv32i_system.UUT.CORE.REGISTER_FILE.wr_ena
+@22
+test_rv32i_system.UUT.CORE.REGISTER_FILE.wr_addr[4:0]
+test_rv32i_system.UUT.CORE.REGISTER_FILE.wr_data[31:0]
 test_rv32i_system.UUT.CORE.REGISTER_FILE.x01[31:0]
 test_rv32i_system.UUT.CORE.REGISTER_FILE.x02[31:0]
 test_rv32i_system.UUT.CORE.REGISTER_FILE.x03[31:0]
