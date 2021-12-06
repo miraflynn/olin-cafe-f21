@@ -14,8 +14,9 @@ MMU_SRCS=hdl/block_ram.sv
 RV32I_SRCS=${RFILE_SRCS} ${ALU_SRCS} ${MMU_SRCS} hdl/rv32i_defines.sv hdl/rv32i_multicycle_core.sv hdl/rv32i_system.sv
 
 # Look up .PHONY rules for Makefiles
-.PHONY: clean submission remove_solutions
+.PHONY: clean submission remove_solutions waves_rv32i_system
 
+# Converts .s files to memh files that can be read by verilog
 %.memh : %.s
 	./assembler.py $< -o $@
 
@@ -29,7 +30,11 @@ test_distributed_ram: tests/test_distributed_ram.sv hdl/distributed_ram.sv
 test_rv32i_system: tests/test_rv32i_system.sv asm/itypes.memh ${RV32I_SRCS}
 	${IVERILOG} -DINITIAL_MEMORY=\"asm/itypes.memh\" tests/test_rv32i_system.sv ${RV32I_SRCS} -s test_rv32i_system -o test_rv32i_system.bin && ${VVP} test_rv32i_system.bin ${VVP_POST}
 
-waves_rv32i_system: test_rv32i_system
+# Modify the -DINITIAL_MEMORY string to change the initial memory.
+test_rv32i_loads: tests/test_rv32i_system.sv asm/loads.memh ${RV32I_SRCS}
+	${IVERILOG} -DINITIAL_MEMORY=\"asm/loads.memh\" tests/test_rv32i_system.sv ${RV32I_SRCS} -s test_rv32i_system -o test_rv32i_system.bin && ${VVP} test_rv32i_system.bin ${VVP_POST}
+
+waves_rv32i_system:
 	gtkwave rv32i_system.fst -a tests/rv32i_system.gtkw
 
 main.bit: main.sv $(MAIN_SRCS) build.tcl
