@@ -15,7 +15,7 @@ MMU_SRCS=hdl/mmu.sv hdl/block_ram.sv hdl/block_rom.sv hdl/memmap.sv hdl/distribu
 RV32I_SRCS=${RFILE_SRCS} ${ALU_SRCS} ${MMU_SRCS} hdl/rv32i_defines.sv hdl/rv32i_multicycle_core.sv hdl/rv32i_system.sv
 
 # Look up .PHONY rules for Makefiles
-.PHONY: clean submission remove_solutions waves_rv32i_system
+.PHONY: clean submission remove_solutions waves_rv32i_system analyze_rv32i_system
 
 %.memh : %.s assembler.py rv32i.py
 	./assembler.py $< -o $@
@@ -44,6 +44,9 @@ rv32i_system.bit: ${RV32I_SRCS} build.tcl asm/peripherals.memh
 	@echo "#### Building FPGA bitstream        ####"
 	@echo "########################################"
 	${VIVADO} build.tcl
+
+analyze_rv32i_system: ${RV32I_SRCS} analysis.tcl asm/peripherals.memh
+	${VIVADO} analysis.tcl
 
 program_fpga_vivado: rv32i_system.bit build.tcl program.tcl
 	@echo "########################################"
