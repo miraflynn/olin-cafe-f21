@@ -18,7 +18,7 @@ RV32I_SRCS=${RFILE_SRCS} ${ALU_SRCS} ${MMU_SRCS} hdl/rv32i_defines.sv hdl/rv32i_
 .PHONY: clean submission remove_solutions waves_rv32i_system
 
 %.memh : %.s assembler.py rv32i.py
-	./assembler.py $< -o $@
+	python3 assembler.py $< -o $@
 
 test_register_file: tests/test_register_file.sv ${RFILE_SRCS}
 	${IVERILOG} $^ -o test_register_file.bin && ${VVP} test_register_file.bin ${VVP_POST}
