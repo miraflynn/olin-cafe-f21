@@ -37,7 +37,7 @@
 # My Functions
 
 # RESET : Set everything to a starting configuration
-# STEP  : Do one full game loop of the thing
+# STEP  : Do one full game loop of the thing. The STEP label only draws black over the ball location, and then moves onto MOVE. STEP is just where each loop starts.
 # MOVE  : Move the ball
 # DRAW  : Draw the frame to the screen
 
@@ -61,11 +61,13 @@ RESET:
     addi t6, zero, 1
     slli t6, t6, 16
     add t0, t0, t6 # t0 = 0x10010000
+    # 0x10010000 is the memory address of the first pixel of the display
     
     addi, t1, zero, 16 
     slli, t1, t1, 14 # t1 = 256 rows of memory address
     add t0, t0, t1 # t0 = 256 rows into memory
     addi t0, t0, -1024 # t0 = 255 rows and 256 columns into memory
+    # The display is 512 rows by 256 columns, so this location is one of the middle 4 pixels of the display
     
     addi, t1, zero, 16 
     slli, t1, t1, 7 # t1 = 0x00000800 = 1 row of memory address
@@ -82,13 +84,15 @@ RESET:
     and t6, zero, zero # t6 = 0
     #addi t5, zero, 75 # t5 = 75
     #slli t5, t5, 10 # t5 = 76800 (320*240)
+    # This was for the hardware display, which I'm not using
+
     addi t5, zero, 1 # t5 = 1
     slli t5, t5, 17 # t5 = 131072 (512*256)
     #addi t4, zero, 255 # reset board to blue
     addi t4, zero, 0 # reset board to black
     RESET_LOOP_START: 
-        sw t4, (t3)
-        addi t3, t3, 4
+        sw t4, (t3) # This writes the value of t4 into the memory address stored in t3.
+        addi t3, t3, 4 # go to next memory address
         addi t6, t6, 1 # t6 = t6 + 1
         blt t6, t5, RESET_LOOP_START
        
@@ -117,8 +121,8 @@ STEP:
 
 MOVE: 
     and t6, zero, zero
-    # lui t3, 0
-    beq t2, t6, MOVE_0 # 24
+    # Go to MOVE_N for whatever N current direction
+    beq t2, t6, MOVE_0
     addi t6, t6, 1
     beq t2, t6, MOVE_1
     addi t6, t6, 1
@@ -137,6 +141,9 @@ MOVE:
 
 # +X: add 1 row to memory address
 # +Y: add 4 to memory address
+
+# Every move, the memory address is moved and the edge condition(s) are checked. If the edge condition, then undo the move and change direction correctly. Undoing the move makes some of the memory address checking work better, as the condition for left and right side bounce is actually exactly the same (the memory addresses wrap). If the move wasn't undone, then the edge conditions would be more reliant on the direction, so undoing the move makes the code easier. Undoing only takes 2 clock cycles, so it's easier, faster, and not noticeable.
+# The movement checks are copy-pasted, as this was easier than writing a function for it.
 
 # +2X   
 MOVE_0: 
@@ -379,6 +386,7 @@ MOVE_7_BOUNCEY:
     addi t0, t0, 4 # Undo this move
     beq zero, zero, DRAW
 
+# The draw code is almost exactly the same as the draw black code from STEP. 
 DRAW: 
     addi t6, zero, -1 # color 0xFFFFFFFF = White
     # mem position +0 row, +0 col
@@ -401,6 +409,7 @@ DRAW:
     addi t0, t0, 4 # mem position +0 row, +0 col
     sw t6, (t0) # set color t6
     
+    # This loop does nothing other than take a long time to run. This helps the code run at a human speed. Also, because the movement code happens between when the old position is drawn over with black and the new position is drawn, this means the ball is drawn for a high percent of the time.
     addi t6, zero, 1
     slli t6, t6, 10
     addi t5, zero, 0
@@ -410,10 +419,12 @@ DRAW:
     
     beq zero, zero, STEP
     
+# END doesn't actually do anything, but was a helpful troubleshooting thing.
 END:
 and zero, zero, zero
 
 
+# Testing code that I'd used before and now don't want to delete.
 
 #    # Draw all 0s to display
 #    lui t3, 1
